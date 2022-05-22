@@ -310,6 +310,7 @@ input[type="text"]:placeholder {
 
 <script>
 import axios from "axios";
+
 export default {
   data() {
     return {
@@ -333,6 +334,7 @@ export default {
       this.prenom = document.querySelector("#prenom").value;
       this.password = document.querySelector("#password").value;
       this.email = document.querySelector("#email").value;
+      const self = this;
       axios
         .post("http://localhost:3000/api/user/signup", {
           nom: this.nom,
@@ -342,9 +344,12 @@ export default {
         })
         .then(function (response) {
           console.log(response);
+          self.mode = "login";
+          self.incorrect = false;
         })
         .catch(function (error) {
           console.log(error);
+          self.$router.push("/connect");
         });
     },
     login() {
@@ -362,9 +367,7 @@ export default {
 
           document.cookie = `user-token=${token}; SameSite=Lax; Secure; max-age=86400;`;
           document.cookie = `userId=${userId}; SameSite=Lax; Secure; max-age=86400;`;
-          this.$session.start();
-          this.$session.set("jwt", token);
-          this.$session.set("userId", userId);
+
           self.$router.push("/");
         })
         .catch(function (error) {

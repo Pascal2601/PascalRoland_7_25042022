@@ -1,19 +1,54 @@
 <template>
-  <div id="nav">
-    <router-link to="/"
-      ><img
-        id="nav_groupomania"
-        src="../image/icon-left-font-monochrome-white.svg"
-        alt="lien acceuil"
-    /></router-link>
-  </div>
+  <header>
+    <div class="navigation">
+      <nav
+        class="navbar navbar-expand-lg navbar-light white fixed-top nav justify-content-center"
+      >
+        <ul class="nav justify-content-center">
+          <li class="nav-item">
+            <a class="nav-link">
+              <router-link to="/"
+                ><img
+                  id="nav_groupomania"
+                  src="../image/icon-left-font-monochrome-white.svg"
+                  alt="lien acceuil"
+              /></router-link>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link">
+              <router-link to="/connect"
+                ><img
+                  id="nav_groupomania"
+                  src="../image/sign-out-alt-solid.svg"
+                  alt="logout"
+                  class="logout"
+              /></router-link>
+            </a>
+          </li>
+        </ul>
+      </nav>
+    </div>
+  </header>
   <router-view />
 </template>
 
 <style lang="scss">
+.logout {
+  height: 30px;
+}
+.navbar {
+  border-bottom: 1px solid #dbdbdb;
+}
+.navigation {
+  padding-bottom: 30px;
+}
+.white {
+  background-color: #fff;
+}
 body {
   margin: 0;
-  background-color: #f0f2f5;
+  background-color: #fafafa;
 }
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
