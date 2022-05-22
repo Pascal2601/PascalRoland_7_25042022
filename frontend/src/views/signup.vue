@@ -359,8 +359,12 @@ export default {
         .then(function (response) {
           const token = response.data.token;
           const userId = response.data.userId;
-          localStorage.setItem("userId", userId); // store the token in localstorage
+
           document.cookie = `user-token=${token}; SameSite=Lax; Secure; max-age=86400;`;
+          document.cookie = `userId=${userId}; SameSite=Lax; Secure; max-age=86400;`;
+          this.$session.start();
+          this.$session.set("jwt", token);
+          this.$session.set("userId", userId);
           self.$router.push("/");
         })
         .catch(function (error) {

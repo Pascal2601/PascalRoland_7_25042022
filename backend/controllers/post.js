@@ -4,10 +4,11 @@ const { text } = require("express");
 
 exports.getAll = (req, res, next) => {
   // TOUT LES POST DU DERNIER AU PREMIER
-  let sql = "SELECT * FROM post ORDER BY date DESC";
+  let sql =
+    "SELECT * FROM post p JOIN user WHERE user.id=authorId ORDER BY date DESC;";
   pool.execute(sql, function (err, result) {
     if (err) res.status(400).json({ e });
-    console.log(result);
+
     res.status(200).json(result);
   });
 };
@@ -17,7 +18,7 @@ exports.create = (req, res, next) => {
   const image = req.file
     ? `${req.protocol}://${req.get("host")}/images/post/${req.file.filename}`
     : "";
-  const textSend = req.body.post ? req.body.post.text : " ";
+  const textSend = req.body.text ? req.body.text : " ";
   const post = {
     text: textSend,
     imageUrl: image,
