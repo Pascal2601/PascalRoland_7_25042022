@@ -3,12 +3,13 @@ const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const dotenv = require("dotenv").config();
 
-exports.test = (req, res, next) => {
-  let sql = "SELECT * FROM user";
+exports.delete = (req, res, next) => {
+  const userId = req.body.userId;
+  let sql = `DELETE FROM user WHERE id='${userId}'`;
   pool.execute(sql, function (err, result) {
     if (err) throw err;
     console.log(result);
-    res.status(200).json(result);
+    res.status(200).json({ message: `Compte numéro ${userId} supprimé` });
   });
 };
 
