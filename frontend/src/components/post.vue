@@ -191,6 +191,7 @@
 
 <script>
 import axios from "axios";
+const CryptoJS = require("crypto-js");
 export default {
   data() {
     return {
@@ -207,10 +208,13 @@ export default {
       comments: null,
       newComment: null,
       userId: document.cookie
-        ? document.cookie
-            .split("; ")
-            .find((row) => row.startsWith("userId="))
-            .split("=")[1]
+        ? CryptoJS.AES.decrypt(
+            document.cookie
+              .split("; ")
+              .find((row) => row.startsWith("userId="))
+              .split("=")[1],
+            this.$store.state.CryptoKey
+          ).toString(CryptoJS.enc.Utf8)
         : null,
     };
   },
@@ -402,18 +406,21 @@ export default {
     },
   },
   mounted() {
-    this.userId = document.cookie
-      ? document.cookie
-          .split("; ")
-          .find((row) => row.startsWith("userId="))
-          .split("=")[1]
-      : null;
-    this.token = document.cookie
-      ? document.cookie
-          .split("; ")
-          .find((row) => row.startsWith("user-token="))
-          .split("=")[1]
-      : null;
+    (this.userId = document.cookie
+      ? CryptoJS.AES.decrypt(
+          document.cookie
+            .split("; ")
+            .find((row) => row.startsWith("userId="))
+            .split("=")[1],
+          this.$store.state.CryptoKey
+        ).toString(CryptoJS.enc.Utf8)
+      : null),
+      (this.token = document.cookie
+        ? document.cookie
+            .split("; ")
+            .find((row) => row.startsWith("user-token="))
+            .split("=")[1]
+        : null);
     const self = this;
     axios
       .post(
@@ -492,8 +499,10 @@ export default {
   }
 }
 .ppPost {
-  height: 40px;
-  padding-right: 20px;
+  height: 45px;
+  width: 45px;
+  margin-right: 10px;
+  border-radius: 100%;
 }
 .publier {
   width: 100px;
@@ -553,10 +562,12 @@ export default {
 }
 .pp {
   margin-right: 18px;
+  height: 45px;
 }
 
 .pp2 {
   height: 40px;
+  width: 40px;
   margin-left: 20px;
 }
 .comments {

@@ -22,6 +22,17 @@
               </router-link>
             </a>
           </li>
+          <li class="nav-item" v-if="user">
+            <a class="nav-link">
+              <router-link to="/settings">
+                <img
+                  src="../image/user-cog-solid.svg"
+                  alt="setting"
+                  class="setting"
+                />
+              </router-link>
+            </a>
+          </li>
           <li class="nav-item">
             <a class="nav-link">
               <router-link to="/"
@@ -42,12 +53,18 @@
 </template>
 
 <style lang="scss">
+.setting {
+  height: 32px;
+  margin-left: 20px;
+}
 .userPageLink {
   height: 40px;
+  width: 40px;
   margin-top: 0px;
   margin-bottom: 0px;
   margin-left: 50px;
   margin-right: 40px;
+  border-radius: 100%;
 }
 .logout {
   height: 30px;
@@ -96,6 +113,7 @@ body {
 
 <script>
 import axios from "axios";
+const CryptoJS = require("crypto-js");
 export default {
   data() {
     return {
@@ -107,10 +125,13 @@ export default {
             .split("=")[1]
         : null,
       userId: document.cookie
-        ? document.cookie
-            .split("; ")
-            .find((row) => row.startsWith("userId="))
-            .split("=")[1]
+        ? CryptoJS.AES.decrypt(
+            document.cookie
+              .split("; ")
+              .find((row) => row.startsWith("userId="))
+              .split("=")[1],
+            this.$store.state.CryptoKey
+          ).toString(CryptoJS.enc.Utf8)
         : null,
     };
   },
