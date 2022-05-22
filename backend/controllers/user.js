@@ -17,13 +17,17 @@ exports.signup = (req, res, next) => {
   bcrypt
     .hash(req.body.password, 10)
     .then((hash) => {
+      const image = `${req.protocol}://${req.get(
+        "host"
+      )}/images/profile/pp.png`;
       const user = {
         nom: req.body.nom,
         prenom: req.body.prenom,
         email: req.body.email,
         password: hash,
+        imageUrl: image,
       };
-      let sql = `INSERT INTO user (nom, prenom, email, password) VALUES ("${user.nom}","${user.prenom}","${user.email}","${user.password}")`;
+      let sql = `INSERT INTO user (nom, prenom, email, password, imageUrl) VALUES ("${user.nom}","${user.prenom}","${user.email}","${user.password}","${user.imageUrl}")`;
       pool.execute(sql, function (err, result) {
         if (err) throw err;
         res.status(201).json({ message: `Utilisateur ${user.prenom} ajouté` });
@@ -43,6 +47,7 @@ exports.login = (req, res, next) => {
         if (!valid) {
           return res.status(401).json({ error: " Mot de passe incorrect !" });
         }
+        console.log("utilisateur connecté");
         res.status(200).json({
           userId: user.id,
           token: jwt.sign({ userId: user.id }, process.env.SECRET_TOKEN_KEY, {
