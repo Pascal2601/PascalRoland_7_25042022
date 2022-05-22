@@ -349,7 +349,7 @@ export default {
         })
         .catch(function (error) {
           console.log(error);
-          self.$router.push("/connect");
+          self.$router.push("/");
         });
     },
     login() {
@@ -367,8 +367,8 @@ export default {
 
           document.cookie = `user-token=${token}; SameSite=Lax; Secure; max-age=86400;`;
           document.cookie = `userId=${userId}; SameSite=Lax; Secure; max-age=86400;`;
-
-          self.$router.push("/");
+          self.$store.commit("changeUserId", userId);
+          self.$router.push("/home");
         })
         .catch(function (error) {
           if (error) {
