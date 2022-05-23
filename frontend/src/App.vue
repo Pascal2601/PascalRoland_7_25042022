@@ -2,23 +2,35 @@
   <header>
     <div class="navigation">
       <nav
-        class="navbar navbar-expand-lg navbar-light white fixed-top nav justify-content-center"
+        class="navbar navbar-expand-sm navbar-light white fixed-top nav d-flex justify-content-center flex-nav"
       >
+        <a class="nav-link">
+          <router-link to="/home"
+            ><img
+              class="homeLinkBig"
+              id="nav_groupomania"
+              src="../image/icon-left-font-monochrome-white.svg"
+              alt="lien acceuil"
+          /></router-link>
+        </a>
+        <a class="nav-link">
+          <router-link to="/home"
+            ><img
+              class="homeLinkLil"
+              src="../image/icon.svg"
+              alt="lien acceuil"
+          /></router-link>
+        </a>
         <ul class="nav justify-content-center">
-          <li class="nav-item">
-            <a class="nav-link">
-              <router-link to="/home"
-                ><img
-                  id="nav_groupomania"
-                  src="../image/icon-left-font-monochrome-white.svg"
-                  alt="lien acceuil"
-              /></router-link>
-            </a>
-          </li>
           <li class="nav-item" v-if="user">
             <a class="nav-link">
               <router-link :to="{ name: 'user', params: { userId: user.id } }">
-                <img v-bind:src="user.pp" alt="pp" class="userPageLink" />
+                <img
+                  v-bind:src="user.pp"
+                  alt="pp"
+                  class="userPageLink"
+                  @click="refresh"
+                />
               </router-link>
             </a>
           </li>
@@ -49,23 +61,33 @@
       </nav>
     </div>
   </header>
-  <router-view />
+  <router-view :key="$route.fullPath" />
 </template>
 
 <style lang="scss">
-.setting {
-  height: 32px;
-  margin-left: 20px;
+a:hover {
+  transition: 0.3s;
+  transform: scale(1.1);
 }
 .userPageLink {
   height: 40px;
   width: 40px;
   margin-top: 0px;
   margin-bottom: 0px;
-  margin-left: 50px;
+
   margin-right: 40px;
   border-radius: 100%;
 }
+
+.homeLinkLil {
+  height: 53px;
+  margin-right: 20px;
+}
+.setting {
+  height: 32px;
+  margin-left: 20px;
+}
+
 .logout {
   height: 30px;
 }
@@ -96,7 +118,6 @@ body {
 }
 
 #nav {
-  padding: 30px;
   background-color: #091f43;
   &_groupomania {
     width: 200px;
@@ -107,6 +128,34 @@ body {
     &.router-link-exact-active {
       color: #d1515a;
     }
+  }
+}
+
+@media only screen and (min-width: 1000px) {
+  .homeLinkLil {
+    display: none;
+  }
+}
+@media only screen and (max-width: 1000px) {
+  .homeLinkBig {
+    display: none;
+  }
+  .userPageLink {
+    margin: 0px;
+  }
+  #nav_groupomania {
+    width: 30px;
+  }
+  .homeLinkLil {
+    margin: 0px;
+  }
+}
+@media only screen and (max-width: 570px) {
+  li {
+    margin-top: -15px;
+  }
+  .homeLinkLil {
+    margin-top: -16px;
   }
 }
 </style>
@@ -136,6 +185,9 @@ export default {
     };
   },
   methods: {
+    refresh() {
+      this.$router.push(`/user/${this.userId}`);
+    },
     deconnexion() {
       document.cookie = "userId=";
       document.cookie = "user-token=";

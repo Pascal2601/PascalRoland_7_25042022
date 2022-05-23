@@ -32,13 +32,21 @@ exports.getAll = (req, res, next) => {
 };
 
 exports.delete = (req, res, next) => {
-  let sql2 = `DELETE from comment WHERE idComment=?;`;
-  pool.execute(sql2, [req.params.commentId], function (err, result) {
-    if (err) res.status(400).json({ err });
-    let sql = `UPDATE post SET post.comment = post.comment - 1 WHERE postId=?;`;
-    pool.execute(sql, [req.params.postId], function (err, result) {
+  let sql3 = `SELECT * from comment WHERE idComment=?`;
+  pool.execute(sql3, [req.params.commentId], function (err, result) {
+    if (result[0].authorId == req.body.userId || req.body.admin == true) {
       if (err) res.status(400).json({ err });
-      res.status(200).json(result);
-    });
+      let sql2 = `DELETE from comment WHERE idComment=?;`;
+      pool.execute(sql2, [req.params.commentId], function (err, result) {
+        if (err) res.status(400).json({ err });
+        let sql = `UPDATE post SET post.comment = post.comment - 1 WHERE postId=?;`;
+        pool.execute(sql, [req.params.postId], function (err, result) {
+          if (err) res.status(400).json({ err });
+          res.status(200).json(result);
+        });
+      });
+    } else {
+      res.status(400).json({ message: "Bien essayé petit malin!" });
+    }
   });
 };
