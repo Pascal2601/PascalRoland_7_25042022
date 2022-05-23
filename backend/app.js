@@ -6,7 +6,9 @@ const postRoutes = require("./routes/post");
 const likeRoutes = require("./routes/like");
 const commentRoutes = require("./routes/comment");
 const path = require("path");
+const helmet = require("helmet");
 app.use(express.json());
+app.use(helmet());
 
 app.use((req, res, next) => {
   res.setHeader("Access-Control-Allow-Origin", "*");

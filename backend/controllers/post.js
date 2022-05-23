@@ -4,7 +4,7 @@ const fs = require("fs");
 exports.getAll = (req, res, next) => {
   // TOUT LES POST DU DERNIER AU PREMIER
   let sql =
-    "SELECT * FROM post p JOIN user WHERE user.id=authorId ORDER BY date DESC;";
+    "SELECT * FROM post p JOIN user WHERE user.id=authorId ORDER BY date DESC LIMIT 50;";
   pool.execute(sql, function (err, result) {
     if (err) res.status(400).json({ err });
 
