@@ -7,7 +7,7 @@
           <!-- Modif Form -->
           <form v-on:submit.prevent="supprimerCompte()">
             <input
-              type="text"
+              type="password"
               id="password"
               name="login"
               placeholder="Mot de passe"
