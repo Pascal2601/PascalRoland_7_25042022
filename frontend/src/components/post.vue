@@ -460,6 +460,9 @@ export default {
       });
     this.getPost();
     this.liked();
+    if (!this.userId) {
+      this.$router.push("/");
+    }
   },
 };
 </script>

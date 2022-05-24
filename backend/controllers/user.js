@@ -106,6 +106,7 @@ exports.getOne = (req, res, next) => {
     res.status(200).json(result);
   });
 };
+
 exports.getAs = (req, res, next) => {
   let sql = `SELECT * FROM user WHERE nom LIKE '%${req.body.nom}%' OR prenom LIKE '%${req.body.nom}%' LIMIT 12;`;
   pool.execute(sql, [req.body.nom], function (err, result) {
@@ -113,6 +114,7 @@ exports.getAs = (req, res, next) => {
     res.status(200).json(result);
   });
 };
+
 exports.modifyPassword = (req, res, next) => {
   if (req.body.password) {
     let sql = `SELECT * FROM user WHERE id=?`;

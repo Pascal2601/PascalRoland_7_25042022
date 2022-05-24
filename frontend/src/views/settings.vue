@@ -181,6 +181,7 @@ export default {
     },
     switchToDelete() {
       this.deleteAccount = true;
+      this.modePassword = false;
     },
     switchTo() {
       this.modePassword

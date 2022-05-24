@@ -7,7 +7,6 @@ exports.getAll = (req, res, next) => {
     "SELECT * FROM post p JOIN user WHERE user.id=authorId ORDER BY date DESC LIMIT 50;";
   pool.execute(sql, function (err, result) {
     if (err) res.status(400).json({ err });
-
     res.status(200).json(result);
   });
 };
@@ -108,7 +107,7 @@ exports.modify = (req, res, next) => {
         };
         // UPDATE LA DB
         let sql2 = `UPDATE post
-             SET text = ?, imageUrl= ?, date = ?
+                SET text = ?, imageUrl= ?, date = ?
                 WHERE id = ?`;
         pool.execute(
           sql2,
@@ -129,7 +128,7 @@ exports.modify = (req, res, next) => {
     };
     // UPDATE LA DB
     let sql2 = `UPDATE post
-         SET text = ?, date =?
+                SET text = ?, date =?
                 WHERE id = ?`;
     pool.execute(
       sql2,
