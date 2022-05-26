@@ -83,6 +83,7 @@
               alt=""
             />
           </div>
+          <!-- affichage liste résultat recherche -->
           <div class="results" v-if="userSearch && research != ''">
             <div v-for="result in userSearch" :key="result.id" class="result">
               <router-link
