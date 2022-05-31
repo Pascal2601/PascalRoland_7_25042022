@@ -1,12 +1,12 @@
 const express = require("express");
-const db = require("./config/db");
 const app = express();
+const path = require("path");
+const helmet = require("helmet");
+const db = require("./config/db");
 const userRoutes = require("./routes/user");
 const postRoutes = require("./routes/post");
 const likeRoutes = require("./routes/like");
 const commentRoutes = require("./routes/comment");
-const path = require("path");
-const helmet = require("helmet");
 app.use(express.json());
 app.use(
   helmet({

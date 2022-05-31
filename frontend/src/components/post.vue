@@ -57,7 +57,7 @@
                     width="45"
                   />
                 </router-link>
-
+                <!-- affichage nom prénom et date du post -->
                 <div class="d-flex flex-column flex-wrap ml-2">
                   <span class="font-weight-bold nomUser"
                     >{{ post.prenom }} {{ post.nom }}</span
@@ -65,6 +65,7 @@
                     >Posté le {{ formatDate(post.date) }}</span
                   >
                 </div>
+                <!-- affichage de la croix de suppression pour l'utilisateur et l'admin-->
                 <img
                   class="deletePost"
                   src="../../image/times-solid.svg"
@@ -75,6 +76,7 @@
               </div>
             </div>
           </div>
+          <!-- affichage du text du post-->
           <div v-if="post.text != ' '">
             <span class="text">{{ post.text }}</span>
           </div>
@@ -84,6 +86,7 @@
               v-bind:src="post.imageUrl"
             />
           </div>
+          <!-- affichage like -->
           <div class="react">
             <div class="like" @click="liked">
               <svg
@@ -120,6 +123,7 @@
               </svg>
               <span class="nbr">{{ post.like }}</span>
             </div>
+            <!-- affichage partie commentaire -->
             <div class="comment">
               <svg
                 @click="afficherComment"
@@ -147,6 +151,7 @@
               v-for="comment in comments"
               :key="comment.idComment"
             >
+              <!-- PP dans la partie commentaire -->
               <div class="pp" v-if="post.postId === comment.postId">
                 <router-link
                   :to="{ name: 'user', params: { userId: comment.authorId } }"
@@ -159,11 +164,16 @@
                   />
                 </router-link>
               </div>
+              <!-- Date auteur et commentaire -->
               <div v-if="post.postId === comment.postId" class="commentaire">
+                <div class="text-black-50">
+                  Posté le {{ formatDate(post.date) }}
+                </div>
                 <span class="commentAuthor"
                   >{{ comment.prenom }} {{ comment.nom }}</span
                 >
                 <p class="commentText">{{ comment.comment }}</p>
+                <!-- suppression du commentaire -->
                 <img
                   class="delete"
                   src="../../image/times-solid.svg"
@@ -180,6 +190,7 @@
               </div>
             </div>
           </div>
+          <!-- commentaire vide -->
           <div class="col-10 d-flex justify-content-center comment">
             <input
               v-on:keyup.enter="comment($event, post.postId)"
@@ -194,6 +205,7 @@
         </div>
       </div>
     </div>
+    <!-- en cas d'aucun post-->
     <div v-else class="noPost">
       <p class="text-noPost">Aucun post ici pour le moment ...</p>
     </div>

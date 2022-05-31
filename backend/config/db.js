@@ -5,7 +5,7 @@ const dotenv = require("dotenv").config();
 const pool = mysql.createPool({
   host: process.env.DB_HOST,
   user: process.env.DB_USER,
-  database: "groupomania",
+  database: process.env.DB_BASE,
   password: process.env.DB_PASS,
 });
 

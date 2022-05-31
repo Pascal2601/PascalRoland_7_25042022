@@ -184,7 +184,7 @@ a:hover {
   padding-bottom: 30px;
 }
 .white {
-  background-color: #fff;
+  background-color: #ffd7d7;
 }
 body {
   margin: 0;
