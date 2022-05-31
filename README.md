@@ -29,7 +29,7 @@ Il vous faut avoir installé sur votre machine :
 Créer un dossier vide puis cloner ce repository à l'intérieur :
 
 ```
-https://github.com/ThomasL9731/Groupomania.git
+https://github.com/Pascal2601/PascalRoland_7_25042022.git
 ```
 
 ## MySQL
