@@ -5,8 +5,8 @@
         class="navbar navbar-expand-sm navbar-light white fixed-top nav d-flex justify-content-center flex-nav"
       >
         <a class="nav-link">
-          <router-link to="/home"
-            ><img
+          <router-link to="/home">
+            <img
               class="homeLinkBig"
               id="nav_groupomania"
               src="../image/icon-left-font-monochrome-white.svg"
@@ -187,9 +187,14 @@ a:hover {
   background-color: #ffd7d7;
 }
 body {
-  margin: 0;
-  background-color: #fafafa;
+  background-image: url("../image/icon.png");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-attachment: fixed;
+
+  background-color: #ffffff;
 }
+
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;

@@ -10,6 +10,7 @@
               class="form-group mb-3 col-12 d-flex justify-content-center align-items-center"
             >
               <img v-if="user" v-bind:src="user.pp" alt="pp" class="ppPost" />
+
               <input
                 type="text"
                 class="form-control mb-2"
@@ -19,13 +20,16 @@
               />
             </div>
             <div class="d-flex justify-content-between">
-              <input
-                @change="upload2"
-                type="file"
-                id="image"
-                name="image"
-                accept="image/png, image/jpeg"
-              />
+              <label for="image"
+                >Ajouter un fichier<br />
+                <input
+                  @change="upload2"
+                  type="file"
+                  id="image"
+                  name="image"
+                  accept="image/png, image/jpeg"
+                />
+              </label>
               <button @click="addPost()" class="publier btn btn-primary">
                 Publier
               </button>
@@ -52,6 +56,7 @@
                   :to="{ name: 'user', params: { userId: post.authorId } }"
                 >
                   <img
+                    alt="image profile utilisateur post"
                     class="rounded-circle pp"
                     v-bind:src="post.pp"
                     width="45"
@@ -61,7 +66,7 @@
                 <div class="d-flex flex-column flex-wrap ml-2">
                   <span class="font-weight-bold nomUser"
                     >{{ post.prenom }} {{ post.nom }}</span
-                  ><span class="text-black-50"
+                  ><span class="text-black-80"
                     >Posté le {{ formatDate(post.date) }}</span
                   >
                 </div>
@@ -82,6 +87,7 @@
           </div>
           <div v-if="post.imageUrl" class="mb-2">
             <img
+              alt="photo post"
               class="img-fluid img-responsive imagePost"
               v-bind:src="post.imageUrl"
             />
@@ -166,7 +172,7 @@
               </div>
               <!-- Date auteur et commentaire -->
               <div v-if="post.postId === comment.postId" class="commentaire">
-                <div class="text-black-50">
+                <div class="text-black-80">
                   Posté le {{ formatDate(post.date) }}
                 </div>
                 <span class="commentAuthor"
@@ -486,6 +492,11 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+input,
+label {
+  margin: 0.5rem 0;
+}
+
 .text-noPost {
   text-align: center;
   font-weight: 500;
@@ -561,10 +572,12 @@ export default {
   object-fit: cover;
 }
 .publier {
+  margin-top: 30px;
+  height: 100%;
   width: 100px;
 }
 .home {
-  height: 140px;
+  height: 170px;
 }
 .form {
   width: 90%;

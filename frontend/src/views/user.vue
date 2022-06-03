@@ -51,6 +51,7 @@
                     :to="{ name: 'user', params: { userId: post.authorId } }"
                   >
                     <img
+                      alt="image profile utilisateur post"
                       class="rounded-circle pp"
                       v-bind:src="post.pp"
                       width="45"
@@ -60,7 +61,7 @@
                   <div class="d-flex flex-column flex-wrap ml-2">
                     <span class="font-weight-bold nomUser"
                       >{{ post.prenom }} {{ post.nom }}</span
-                    ><span class="text-black-50"
+                    ><span class="text-black-80"
                       >Posté le {{ formatDate(post.date) }}</span
                     >
                   </div>
@@ -79,6 +80,7 @@
             </div>
             <div v-if="post.imageUrl" class="mb-2">
               <img
+                alt="photo post"
                 class="img-fluid img-responsive imagePost"
                 v-bind:src="post.imageUrl"
               />
