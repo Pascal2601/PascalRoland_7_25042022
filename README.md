@@ -58,6 +58,8 @@ Attention a indiquer le chemin avec des "/" et non des "\ ".
 
 ## BACK END
 
+Ajouter un dossier post dans le dossier images
+
 Ouvrir un terminal dans le dossier backend puis effectuer les lignes de commandes suivantes :
 
 ```
